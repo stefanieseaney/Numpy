@@ -78,3 +78,96 @@ print(e)
 f = grades[:, [0, 2]]
 
 print(f)
+
+
+# 12 random grades in range 60- 100 then reshape result to 3 x 4 array
+# calc average of all grades, average for each test and averages for each student
+
+grade = np.random.randint(60, 101, 12).reshape(3, 4)
+
+
+all_grades_avg = grade.mean()
+each_test_avg = grade.mean(axis=0)
+each_student_avg = grade.mean(axis=1)
+
+print(all_grades_avg, each_test_avg, each_student_avg)
+
+
+# shallow copy (view) - view of array and whatever changes in view affects array and vise versa
+# not independent
+
+numbers = np.arange(1, 6)
+
+print(numbers)
+
+numbers2 = numbers.view()
+
+numbers[1] *= 10
+
+print(numbers2)
+
+# slice views
+
+numbers2 = numbers2[0:3]
+
+numbers[1] *= 20
+
+print(numbers2)
+
+
+# deep copy - independent from original and returns a new array with a deep copy of the original array
+numbers = np.arange(1, 6)
+numbers2 = numbers.copy()
+
+numbers[1] *= 10
+
+print(numbers)
+print(numbers2)
+
+
+grades = np.array([[87, 96, 70], [100, 87, 90]])
+
+a = grades.reshape(1, 6)
+
+print(grades)
+
+print(a)
+
+# reshape does not affect the original but resize does
+
+b = grades.resize(1, 6)
+
+print(grades)
+print(b)
+
+
+# flatten methods - produces a deep copy and does the same thing as reshape
+flattened = grades.flatten()
+
+# produces a shallow copy - raveled
+raveled = grades.ravel()
+
+raveled[0] = 100
+
+print(grades)
+
+raveled[5] = 99
+
+print(grades)
+
+# transpose the columns and rows
+t = grades.T
+
+print(t)
+print(grades)
+
+grades2 = np.array([[94, 77, 90], [100, 81, 82]])
+
+# add more columns
+h_grades = np.hstack((grades, grades2))
+
+# adds more rows
+v_grades = np.vstack((grades, grades2))
+
+print(h_grades)
+print(v_grades)
